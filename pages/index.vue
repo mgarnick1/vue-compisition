@@ -7,24 +7,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from "@vue/composition-api";
+import {
+  defineComponent,
+  toRefs,
+  reactive,
+  watchEffect
+} from "@vue/composition-api";
 
 export default defineComponent({
   setup() {
-    const count = ref(0);
+    const state = reactive({
+      count: 0
+    })
 
     function addToCount() {
-      count.value++;
+      state.count++;
     }
 
     watchEffect(() => {
-      console.log(count.value);
+      console.log(state.count);
     });
 
     return {
-      count,
-      addToCount,
+      ...toRefs(state),
+      addToCount
     };
-  },
+  }
 });
 </script>
